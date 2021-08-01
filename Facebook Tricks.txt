@@ -1,0 +1,59 @@
+
+
+-----------------------------------------------------
+Bàn luận về access token Facebook:
+
+- Admin của một page, tạo một app (tại https://developers.facebook.com/) sẽ có app access token, page access token (với quyền hạn tự đặt). Quản trị viên với hai loại token này có thể thao tác Page thông qua Graph API của Facebook.
+Gồm các thao tác chỉnh sửa page, đăng bài, xoá bài, tương tác với người đã nhắn tin cho page, lấy các thông tin liên quan tới page, ...
+
+- Người sử dụng một app (gồm các tiện ích, trò chơi) sẽ được yêu cầu cấp quyền cho app, tuỳ vào phạm vi quyền đòi hỏi của app đấy, người dùng có thể cho phép hoặc không. Sau khi xác nhận cấp quyền cho app, một user token sẽ được tạo (với quyền hạn như thiết lập). App đấy có thể lấy user token của người dùng.
+
+- User token cho phép người có nó có thể thao tác với facebook thông qua tài khoản ứng với nó (với quyền hạn do người dùng chọn lúc cài app). Vậy nếu app đó đòi hỏi một số quyền nhạy cảm, người dùng không để ý có thể bị lợi dụng. Bạn có user token, tức là bạn có thể giao tiếp với mạng xã hội Facebook thông qua Graph API Facebook, không cần đăng nhập, không cần truy cập đến tận bài viết để react, comment. Giúp bạn tự động hoá mọi thứ. Thử tưởng tượng chong tay có 5000 token (với quyền react, comment post khác) thì ta có thể dùng chúng để tương tác với post mong muốn. Và đương nhiên mỗi token đó, ta có quyền truy xuất vô vàn thông tin từ thông tin cá nhân, tin nhắn, các bài viết đã tương tác, các bình luận, những người ta đã chặn, ...
+
+
+-----------------------------------------------------
+Một số thủ thuật:
+
+- Token ngắn hạn có thời gian tồn tại nhất định, tuy nhiên khi tạo mới mật khẩu thì token sẽ tạo mới luôn (Nên nếu có sử dụng app hoặc game thứ 3, đổi mật khẩu là an toàn). Có thể tạo Token dài hạn (không hạn) từ token ngắn hạn
+
+- Lấy thông tin user token (với một số quyền hạn nhất định) và tìm accessToken:
+https://m.facebook.com/composer/ocelot/async_loader/?publisher=feed
+Tìm kiếm từ khoá accessToken (Ctrl + F)
+
+- Lấy thông tin ID bài post public:
+Từ một bài post chọn Embed:
+ID sẽ là phần nằm trong thẻ iframe
+Hoặc nhấn tuỳ chọn Advanced settings thì sẽ hiện luôn thông tin ID
+
+- Xem thông tin ID user:
+Chuyển https://www.facebook.com/[USER_NAME] thành https://m.facebook.com/[USER_NAME]
+Vào See your About info sẽ thấy thông tin
+ID thứ nhất là ID của tài khoản đang dùng (hiện hành)
+ID thứ hai là ID của tài khoản đang xem thông tin
+
+- Trang đăng ký tạo ứng dụng: https://developers.facebook.com/apps
+- Trang sử dụng Graph QL để thực thi hoặc thử nghiệm: https://developers.facebook.com/tools/explorer/
+- Trang truy xuất thông tin token và khởi tạo token dài hạn: https://developers.facebook.com/tools/debug/accesstoken/
+- Graph API: https://developers.facebook.com/docs/graph-api
+- URL thực thi Graph API: https://graph.facebook.com/[API_VERSION]/[END_POINT]?fields=[FIELD]&access_token=[API_TOKEN]
+- Google Script thao tác trên máy chủ Google: https://script.google.com/home
+- Javascript Console đã import SDK Facebook: https://developers.facebook.com/tools/javascript-console/
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
